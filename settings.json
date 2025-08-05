@@ -1,0 +1,15 @@
+{
+    "editor.formatOnSave": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "notebook.formatOnSave.enabled": true,
+    "files.autoSave": "afterDelay",
+    "explorer.confirmDelete": false,
+    "redhat.telemetry.enabled": true,
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "php.validate.executablePath": "",
+        // Adicionado para exibir erros detalhados no PHP
+    "php.validate.enable": true,
+    "php.validate.run": "onType",
+    "php.suggest.basic": true,
+    "workbench.editor.empty.hint": "hidden"
+}

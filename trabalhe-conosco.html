@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalhe Conosco | Porto Guimarães Express</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="img/logo.png" alt="Porto Guimarães Express" class="logo-header">
+            </a>
+        </div>
+    </nav>
+
+<main class="container py-5">
+    <h1 class="text-center mb-4">Trabalhe Conosco</h1>
+    <p class="text-center mb-5">Escolha a base desejada para se candidatar e envie seu currículo para nosso banco de talentos.</p>
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-8 col-12">
+            <form id="form-cadastro" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="base" class="form-label">Selecione a Base</label>
+                    <select class="form-select" id="base" name="base" required>
+                        <option value="" selected disabled>Escolha uma base</option>
+                        <option value="Governador Valadares" data-email="tiago.bh.d@gmail.com" data-abrangencia="Local,Regional" data-cidades-regional="Alpercata, Alvarenga, Cantagalo, Capitão Andrade, Central de Minas, Coluna, Conselheiro Pena, Coroaci, Cuparaque, Divino das Laranjeiras, Divinolândia de Minas, Dom Joaquim, Dores de Guanhães, Engenheiro Caldas, Fernandes Tourinho, Frei Inocêncio, Frei Lagonegro, Galiléia, Goiabeira, Gonzaga, Governador Valadares, Guanhães, Itabirinha, Itambacuri, Itanhomi, Itueta, Jampruca, José Raydan, Mantena, Mantenopolis, Marilac, Materlândia, Mathias Lobato, Mendes Pimentel, Nacip Raydan, Nova Belém, Nova Módica, Paulistas, Peçanha, Pescador, Resplendor, Rio Vermelho, Sabinópolis, Santa Efigênia de Minas, Santa Maria do Suaçuí, Santa Rita do Itueto, São Félix de Minas, São Geraldo da Piedade, São Geraldo do Baixio, São João do Manteninha, São João Evangelista, São José da Safira, São José do Divino, São José do Jacuri, São Pedro do Suaçuí, São Sebastião do Maranhão, Sardoá, Senhora do Porto, Sobrália, Tarumirim, Tumiritinga, Vargem da Lapa, Virginópolis, Virgolândia">Governador Valadares</option>
+                        <option value="Ipatinga" data-email="ipatinga@exemplo.com" data-abrangencia="Local,Regional" data-cidades-regional="Açucena, Antônio Dias, Bela Vista de Minas, Belo Oriente, Bom Jesus do Galho, Braúnas, Bugre, Caratinga, Coronel Fabriciano, Córrego Novo, Dionísio, Dom Cavati, Entre Folhas, Iapu, Imbé de Minas, Inhapim, Ipanema, Ipaba, Ipatinga, Jaguaraçu, Joanésia, Marliéria, Mesquita, Naque, Nova Era, Periquito, Abrangência, Piedade de Caratinga, Pocrane, Raul Soares, Santa Bárbara do Leste, Santa Rita de Minas, Santana do Paraíso, São Domingos das Dores, São Domingos do Prata, São João do Oriente, São José do Goiabal, São Pedro dos Ferros, São Sebastião do Anta, Timóteo, Ubaporanga, Vargem Alegre, Vermelho Novo">Ipatinga</option>
+                        <option value="Teófilo Otoni" data-email="teofilo@exemplo.com" data-abrangencia="Local,Regional" data-cidades-regional="Água Boa, Águas Formosas, Águas Vermelhas, Almenara, Angelândia, Araçuaí, Aricanduva, Ataléia, Bandeira, Bertópolis, Cachoeira de Pajeú, Capelinha, Caraí, Carlos Chagas, Catuji, Chapada do Norte, Comercinho, Crisólita, Divisa Alegre, Divisópolis, Felisburgo, Francisco Badaró, Franciscópolis, Frei Gaspar, Fronteira dos Vales, Itaipé, Itaobim, Itinga, Jacinto, Jenipapo de Minas, Jequitinhonha, Joaíma, Jordânia, José Gonçalves de Minas, Ladainha, Leme do Prado, Machacalis, Malacacheta, Mata Verde, Medina, Minas Novas, Monte Formoso, Nanuque, Novo Cruzeiro, Novo Oriente de Minas, Ouro Verde de Minas, Padre Paraíso, Palmópolis, Pavão, Pedra Azu, Ponto dos Volantes, Poté, Rio do Prado, Rubim, Salto da Divisa, Santa Helena de Minas, Santa Maria do Salto, Santo Antônio do Jacinto, Serra dos Aimorés, Setubinha, Teófilo Otoni, Turmalina, Umburatiba, Veredinha, Virgem da Lapa">Teófilo Otoni</option>
+                        <option value="Sete Lagoas" data-email="setelagoas@exemplo.com" data-abrangencia="Local,Regional" data-cidades-regional="Araçaí, Baldim, Cachoeira da prata, Caetanópolis, Capim Branco, Cordisburgo, Fortuna de Minas, Funilândia, Inhaúma, Jequitibá, Maravilhas, Matozinhos, Papagaios, Paraopeba, Pedro Leopoldo, Pequi, Prudente de Morais, Santana de Pirapama, Santana do Riacho, Serra do Cipó, Sete Lagoas">Sete Lagoas</option>
+                        <option value="Ribeirão das Neves" data-email="ribeirao@exemplo.com" data-abrangencia="Local,Regional" data-cidades-regional="Confins, Esmeraldas, Jaboticatubas, Ribeirão das Neves, São José da Lapa, Taquaraçu de Minas">Ribeirão das Neves</option>
+                        <option value="Contagem" data-email="contagem@exemplo.com" data-abrangencia="Local,Regional" data-cidades-regional="Betim, Contagem, Ibirité, Igarapé, Mário Campos, São Joaquim de Bicas, Sarzedo">Contagem</option>
+                        <option value="João Monlevade" data-email="joaomonlevade@exemplo.com" data-abrangencia="Local,Regional" data-cidades-regional="Alvinópolis, Barão de Cocais, Bela Vista de Minas, Bom Jesus do Amparo, Carmésia, Catas Altas, Dionísio, Dom Silvério, Ferros, Ipoema, Itabira, Itambé do Mato Dentro, João Monlevade, Nova Eram, Nova União, Passabem, Rio Piracicaba, Santa Maria de Itabira, São Domingos do Prata, São Gonçalo, São José do Goiabal, São Sebastião do Rio Preto, Senhora do Carmo">João Monlevade</option>
+                        <option value="Santa Barbara" data-email="santabarbara@exemplo.com" data-abrangencia="Local,Regional" data-cidades-regional="Barão dos Cocais, Catas ALtas">Santa Barbara</option>
+                    </select>
+                </div>
+                <input type="hidden" id="base-email" name="base-email">
+                <input type="hidden" id="cidades-selecionadas" name="cidades-selecionadas">
+                <input type="hidden" id="abrangencia-selecionada" name="abrangencia-selecionada">
+            </form>
+        </div>
+    </div>
+    
+    <div id="form-talentos" style="display:none;">
+        <div class="mb-3 text-center">
+            <label for="nome" class="form-label d-block text-center mb-2">Nome Completo</label>
+            <input type="text" class="form-control campo-menor mx-auto" id="nome" name="nome" required style="max-width:400px;">
+        </div>
+        <div class="mb-3 text-center">
+            <label for="email" class="form-label d-block text-center mb-2">E-mail</label>
+            <input type="email" class="form-control campo-menor mx-auto" id="email" name="email" required style="max-width:400px;">
+        </div>
+        <div class="mb-3 text-center">
+            <label for="contato" class="form-label d-block text-center mb-2">Número de Contato</label>
+            <input type="tel" class="form-control campo-menor mx-auto" id="contato" name="contato" required pattern="[0-9]{10,11}" placeholder="Ex: 31999999999" style="max-width:400px;">
+        </div>
+        <div class="mb-3 text-center">
+            <label for="cargo" class="form-label d-block text-center mb-2">Cargo Pretendido</label>
+            <select class="form-select campo-menor mx-auto" id="cargo" name="cargo" required style="max-width:400px;">
+                <option value="" selected disabled>Escolha o cargo</option>
+                <option value="Motorista">Motorista</option>
+                <option value="Auxiliar de Operações">Auxiliar de Operações</option>
+                <option value="Administrativo">Administrativo</option>
+                <option value="Outros">Outros</option>
+            </select>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="mb-3 text-center" id="abrangencia-container" style="display:none;">
+                    <label for="abrangencia" class="form-label d-block text-center mb-2">Abrangência da Base</label>
+                    <select class="form-select campo-menor mx-auto" id="abrangencia" name="abrangencia" style="max-width:400px;">
+                        <option value="" selected disabled>Selecione a abrangência</option>
+                    </select>
+                </div>
+                <div class="mb-3 text-center" id="cidades-container" style="display:none;">
+                    <label class="form-label d-block text-center mb-2">Cidades atendidas</label>
+                    <div style="max-height:150px; overflow-y:auto; max-width:400px; margin:0 auto;">
+                        <select class="form-select campo-menor mx-auto" id="cidades-select" name="cidades-select" size="6" multiple>
+                        </select>
+                    </div>
+                    <small class="text-muted">Selecione uma ou mais cidades</small>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 text-center">
+            <label for="mensagem" class="form-label d-block text-center mb-2">Mensagem</label>
+            <textarea class="form-control campo-menor mx-auto" id="mensagem" name="mensagem" rows="3" style="resize:vertical; max-width:400px;"></textarea>
+        </div>
+        <div class="mb-3 text-center">
+            <label for="curriculo" class="form-label d-block text-center mb-2">Anexar Currículo (.doc ou .docx)</label>
+            <input type="file" class="form-control campo-menor mx-auto" id="curriculo" name="curriculo" accept=".doc,.docx" required style="max-width:400px;">
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-danger campo-menor" style="max-width:400px;">Enviar Cadastro</button>
+        </div>
+    </div>
+</main>
+
+<script>
+    // Exibe o formulário após seleção da base
+    document.getElementById('base').addEventListener('change', function() {
+        var selected = this.options[this.selectedIndex];
+        var email = selected.getAttribute('data-email') || '';
+        document.getElementById('base-email').value = email;
+        document.getElementById('form-talentos').style.display = 'block';
+    });
+
+    // Controla exibição de abrangência para motorista
+    document.getElementById('cargo').addEventListener('change', function() {
+        var abrangenciaContainer = document.getElementById('abrangencia-container');
+        var abrangenciaSelect = document.getElementById('abrangencia');
+        var cidadesContainer = document.getElementById('cidades-container');
+        var cidadesSelect = document.getElementById('cidades-select');
+        
+        cidadesContainer.style.display = 'none';
+        cidadesSelect.innerHTML = '';
+        document.getElementById('cidades-selecionadas').value = '';
+        document.getElementById('abrangencia-selecionada').value = '';
+        
+        if (this.value === 'Motorista') {
+            abrangenciaSelect.innerHTML = '<option value="" selected disabled>Selecione a abrangência</option>';
+            var baseSelect = document.getElementById('base');
+            var selectedBase = baseSelect.options[baseSelect.selectedIndex];
+            var abrangencias = (selectedBase.getAttribute('data-abrangencia') || '').split(',');
+            
+            abrangencias.forEach(function(item) {
+                if (item.trim()) {
+                    var opt = document.createElement('option');
+                    opt.value = item.trim();
+                    opt.textContent = item.trim();
+                    abrangenciaSelect.appendChild(opt);
+                }
+            });
+            abrangenciaContainer.style.display = 'block';
+        } else {
+            abrangenciaContainer.style.display = 'none';
+        }
+    });
+
+    // Controla exibição de cidades para abrangência regional
+    document.getElementById('abrangencia').addEventListener('change', function() {
+        var cidadesContainer = document.getElementById('cidades-container');
+        var cidadesSelect = document.getElementById('cidades-select');
+        var abrangencia = this.value;
+        var baseSelect = document.getElementById('base');
+        var selectedBase = baseSelect.options[baseSelect.selectedIndex];
+        
+        cidadesSelect.innerHTML = '';
+        document.getElementById('cidades-selecionadas').value = '';
+        document.getElementById('abrangencia-selecionada').value = abrangencia;
+        
+        if (abrangencia === 'Regional') {
+            var cidades = (selectedBase.getAttribute('data-cidades-regional') || '').split(',');
+            cidades.forEach(function(cidade) {
+                if (cidade.trim()) {
+                    var opt = document.createElement('option');
+                    opt.value = cidade.trim();
+                    opt.textContent = cidade.trim();
+                    cidadesSelect.appendChild(opt);
+                }
+            });
+            cidadesContainer.style.display = 'block';
+        } else {
+            cidadesContainer.style.display = 'none';
+        }
+    });
+
+    // Atualiza campo hidden com cidades selecionadas
+    document.getElementById('cidades-select').addEventListener('change', function() {
+        var selectedOptions = Array.from(this.selectedOptions).map(opt => opt.value);
+        document.getElementById('cidades-selecionadas').value = selectedOptions.join(', ');
+    });
+
+    // Atualiza abrangência ao trocar a base se Motorista já estiver selecionado
+    document.getElementById('base').addEventListener('change', function() {
+        var cargoSelect = document.getElementById('cargo');
+        var abrangenciaContainer = document.getElementById('abrangencia-container');
+        var abrangenciaSelect = document.getElementById('abrangencia');
+        var cidadesContainer = document.getElementById('cidades-container');
+        var cidadesSelect = document.getElementById('cidades-select');
+        
+        cidadesContainer.style.display = 'none';
+        cidadesSelect.innerHTML = '';
+        document.getElementById('cidades-selecionadas').value = '';
+        document.getElementById('abrangencia-selecionada').value = '';
+        
+        if (cargoSelect.value === 'Motorista') {
+            abrangenciaSelect.innerHTML = '<option value="" selected disabled>Selecione a abrangência</option>';
+            var selectedBase = this.options[this.selectedIndex];
+            var abrangencias = (selectedBase.getAttribute('data-abrangencia') || '').split(',');
+            
+            abrangencias.forEach(function(item) {
+                if (item.trim()) {
+                    var opt = document.createElement('option');
+                    opt.value = item.trim();
+                    opt.textContent = item.trim();
+                    abrangenciaSelect.appendChild(opt);
+                }
+            });
+            abrangenciaContainer.style.display = 'block';
+        } else {
+            abrangenciaContainer.style.display = 'none';
+        }
+    });
+
+    // Envio do formulário
+    document.getElementById('form-cadastro').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        var formData = new FormData();
+        formData.append('nome', document.getElementById('nome').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('contato', document.getElementById('contato').value);
+        formData.append('cargo', document.getElementById('cargo').value);
+        formData.append('base', document.getElementById('base').value);
+        formData.append('base-email', document.getElementById('base-email').value);
+        formData.append('mensagem', document.getElementById('mensagem').value);
+        formData.append('cidades-selecionadas', document.getElementById('cidades-selecionadas').value);
+        formData.append('abrangencia-selecionada', document.getElementById('abrangencia-selecionada').value);
+        formData.append('curriculo', document.getElementById('curriculo').files[0]);
+        
+        var cargo = document.getElementById('cargo').value;
+        var abrangencia = document.getElementById('abrangencia-selecionada').value;
+        var cidades = document.getElementById('cidades-selecionadas').value;
+        var assunto = `Novo currículo - ${cargo}`;
+        
+        if (cargo === 'Motorista' && abrangencia) {
+            assunto = `Motorista - Abrangência: ${abrangencia}`;
+            if (cidades) {
+                assunto += ` | Cidade(s): ${cidades}`;
+            }
+        }
+        formData.append('assunto', assunto);
+        
+        fetch('/enviar-curriculo', {
+            method: 'POST',
+            body: formData
+        })
+        .then(async response => {
+            const text = await response.text();
+            if (response.ok) {
+                alert('Currículo enviado com sucesso!');
+                document.getElementById('form-cadastro').reset();
+                document.getElementById('form-talentos').style.display = 'none';
+                document.getElementById('abrangencia-container').style.display = 'none';
+                document.getElementById('cidades-container').style.display = 'none';
+            } else {
+                alert('Erro: ' + text);
+            }
+        })
+        .catch(error => {
+            alert('Erro ao enviar currículo: ' + error.message);
+        });
+    });
+</script>
+</body>
+</html>

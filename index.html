@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porto Guimarães Express</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="img/logo.png" alt="Porto Guimarães Express" class="logo-header">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link scroll-link" href="#solucoes">Soluções</a></li>
+                    <li class="nav-item"><a class="nav-link scroll-link" href="#indicadores">Indicadores</a></li>
+                    <li class="nav-item"><a class="nav-link scroll-link" href="#quem-somos">Quem Somos</a></li>
+                    <li class="nav-item"><a class="nav-link scroll-link" href="#noticias">Notícias</a></li>
+                    <li class="nav-item"><a class="nav-link scroll-link" href="#contato">Contato</a></li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-danger btn-sm px-3 scroll-link" href="#parceiros">Nossos Parceiros</a>
+                    </li>
+                </ul>
+            </div>
+            <script>
+                // Ajusta o scroll para compensar o header fixo
+                document.querySelectorAll('.scroll-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        const targetId = this.getAttribute('href');
+                        if (targetId.startsWith('#')) {
+                            const target = document.querySelector(targetId);
+                            if (target) {
+                                e.preventDefault();
+                                const navbar = document.querySelector('.navbar.fixed-top');
+                                const offset = navbar ? navbar.offsetHeight : 0;
+                                const top = target.getBoundingClientRect().top + window.pageYOffset - offset - 10;
+                                window.scrollTo({ top, behavior: 'smooth' });
+                                // Fecha o menu mobile se aberto
+                                const bsCollapse = bootstrap.Collapse.getOrCreateInstance(document.getElementById('navbarNav'));
+                                bsCollapse.hide();
+                            }
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </nav>
+
+    <!-- Banner Principal -->
+    <section class="banner d-flex align-items-center justify-content-center text-center">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-3 text-warning" style="text-shadow:2px 2px 8px #000;">
+                MAIS DE <span style="font-size:1.5em; color:#fff; text-shadow:2px 2px 12px #ff9800;">6 MILHÕES</span> DE ENTREGAS REALIZADAS EM 2024!
+            </h1>
+            <p class="lead mb-4 text-white" style="font-size:1.3em; text-shadow:1px 1px 6px #000;">
+                Somos referência em logística last mile: sua encomenda chega rápido, seguro e com excelência em todo Minas Gerais.
+            </p>
+            <a href="trabalhe-conosco.html" class="btn btn-danger btn-lg">TRABALHE CONOSCO</a>
+        </div>
+    </section>
+
+    <!-- Soluções -->
+    <section id="solucoes" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Nossas Soluções</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-3">
+                        <div class="mb-3">
+                            <img src="img/caminhao.gif" alt="Caminhão em movimento" class="img-fluid" style="height:64px;">
+                        </div>
+                        <h5 class="card-title">Transporte Fracionado</h5>
+                        <p class="card-text">Atendemos mais de 300 cidades e distritos em toda Minas Gerais, com mais de 1 milhão de entregas feitas no último ano.</p>
+                        <a href="#" class="stretched-link"></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-3">
+                        <div class="mb-3">
+                            <img src="img/pacote.gif" alt="E-commerce" class="img-fluid" style="height:64px;">
+                        </div>
+                        <h5 class="card-title">E-commerce</h5>
+                        <p class="card-text">Nossos processos e a experiência de nossa equipe garantem o serviço mais rápido e de maior qualidade para você e para seus clientes, com performance mínima de 98%.</p>
+                        <a href="#" class="stretched-link"></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-3">
+                        <div class="mb-3">
+                            <img src="img/rota.gif" alt="Gestão de Transportes" class="img-fluid" style="height:64px;">
+                        </div>
+                        <h5 class="card-title">Gestão de Transportes</h5>
+                        <p class="card-text">Norteados pela inovação, alta performance e qualidade, somos há 20 anos excelentes em operações logísticas customizadas.</p>
+                        <a href="#" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Indicadores/Resultados -->
+    <section id="indicadores" class="py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="display-6 fw-bold text-primary" data-target="20">0+</div>
+                    <div>Anos no Mercado</div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="display-6 fw-bold text-primary" data-target="5000">0+</div>
+                    <div>Colaboradores</div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="display-6 fw-bold text-primary" data-target="300">0+</div>
+                    <div>Cidades Abrangidas</div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="display-6 fw-bold text-primary" data-target="15000000">0+</div>
+                    <div>Entregas feitas</div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="display-6 fw-bold text-primary" data-target="3000">0+</div>
+                    <div>Veículos</div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="display-6 fw-bold text-primary" data-target="1000000">0+</div>
+                    <div>Entregas/2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function animateCounter(el, target, suffix = "+", duration = 1500) {
+            let start = 0;
+            let end = parseInt(target);
+            let startTime = null;
+            function formatNumber(n) {
+                if (end >= 1000000) return Math.floor(n / 1000000) + "mi" + suffix;
+                if (end >= 1000) return Math.floor(n / 1000) + "mil" + suffix;
+                return Math.floor(n) + suffix;
+            }
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                let progress = Math.min((timestamp - startTime) / duration, 1);
+                let value = Math.floor(progress * (end - start) + start);
+                el.textContent = formatNumber(value);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    el.textContent = formatNumber(end);
+                }
+            }
+            window.requestAnimationFrame(step);
+        }
+
+        let countersAnimated = false;
+        function triggerCounters() {
+            if (countersAnimated) return;
+            const indicadores = document.getElementById('indicadores');
+            const rect = indicadores.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                countersAnimated = true;
+                document.querySelectorAll('#indicadores [data-target]').forEach(function (el) {
+                    animateCounter(el, el.getAttribute('data-target'));
+                });
+            }
+        }
+
+        document.addEventListener("scroll", triggerCounters);
+        document.addEventListener("DOMContentLoaded", triggerCounters);
+    </script>
+            </div>
+        </div>
+    </section>
+<!-- Parceiros + Quem Somos com imagem de fundo -->
+<section class="bg-parceiros py-5">
+    <div class="container">
+        <!-- Parceiros -->
+        <section id="parceiros" class="mb-5">
+            <h2 class="text-center mb-5 text-white text-shadow">Nossos Parceiros</h2>
+            <div class="parceiros-carousel overflow-hidden position-relative" style="height:120px;">
+                <div class="parceiros-track d-flex align-items-center" style="white-space:nowrap;">
+                    <img src="img/loggi.png" alt="Parceiro 1" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/total.png" alt="Parceiro 2" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/shopee.png" alt="Parceiro 3" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/imile.png" alt="Parceiro 4" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/boticário.png" alt="Parceiro 5" class="img-fluid parceiro-img mx-4" style="height:80px;">
+
+                    <!-- Repita para efeito contínuo -->
+                    <img src="img/loggi.png" alt="Parceiro 1" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/total.png" alt="Parceiro 2" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/shopee.png" alt="Parceiro 3" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/imile.png" alt="Parceiro 4" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/boticário.png" alt="Parceiro 5" class="img-fluid parceiro-img mx-4" style="height:80px;">
+
+                    <!-- Repita para efeito contínuo -->
+                    <img src="img/loggi.png" alt="Parceiro 1" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/total.png" alt="Parceiro 2" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/shopee.png" alt="Parceiro 3" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/imile.png" alt="Parceiro 4" class="img-fluid parceiro-img mx-4" style="height:80px;">
+                    <img src="img/boticário.png" alt="Parceiro 5" class="img-fluid parceiro-img mx-4" style="height:80px;">
+
+                </div>
+            </div>
+        </section>
+        <!-- Quem Somos -->
+        <section id="quem-somos" class="py-5">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h2 class="text-white text-shadow">Quem Somos</h2>
+                    <p class="text-white text-shadow">Somos uma empresa dedicada a tornar a rotina de lojas físicas e online mais simples por meio da melhoria contínua da logística. Sabemos que sua trajetória empreendedora vai muito além do ato de entregar produtos, por isso desenvolvemos uma ampla rede de pontos de retirada que cobre grande parte de Minas Gerais.
+Cada uma de nossas bases e todos os nossos processos foram planejados com cuidado para se encaixar de forma harmoniosa às necessidades do seu negócio. Nosso propósito é ser a base que apoia seu crescimento com agilidade e eficácia. Venha fazer parte dessa missão de simplificar, facilitar e inovar. Na Porto Guimarães, mais do que entregas, levamos até você confiança, resultados e tranquilidade.</p>
+
+                </div>
+                <div class="col-md-6 text-center">
+                  <!-- adicione uma imagem aqui caso queira -->
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<style>
+
+/* Carrossel de parceiros animado */
+.parceiros-carousel .parceiros-track {
+    animation: parceirosScroll 18s linear infinite;
+    will-change: transform;
+}
+@keyframes parceirosScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+</style>
+
+    <!-- Notícias/Blog -->
+    <section id="noticias" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Notícias</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="img/noticia1.jpg" class="card-img-top" alt="Notícia 1">
+                        <div class="card-body">
+                            <span class="badge bg-success mb-2">Notícia</span>
+                            <h5 class="card-title" style="font-size:1.1em;">Porto Guimarães marca presença no maior evento de e-commerce da América Latina</h5>
+                            <p class="card-text" style="font-size:0.95em;">A Porto Guimarães marcou presença no maior evento de e-commerce da América Latina, reunindo grandes marcas, especialistas e inovações do setor. A participação reforça nosso compromisso com a modernização e o crescimento digital, buscando sempre as melhores soluções para nossos clientes e parceiros.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="img/noticia2.jpg" class="card-img-top" alt="Notícia 2">
+                        <div class="card-body">
+                            <span class="badge bg-success mb-2">Notícia</span>
+                            <h5 class="card-title" style="font-size:1.1em;">Eficiência logística: Porto Guimarães otimiza gestão e reduz prazos de SLA</h5>
+                            <p class="card-text" style="font-size:0.95em;">A Porto Guimarães vem inovando na gestão logística ao realizar a coleta, triagem e entrega de pedidos no mesmo dia, garantindo mais agilidade e satisfação aos clientes. Com parcerias estratégicas,  a operação acontece todos os dias da semana, garantindo mais agilidade e reduzindo significativamente o prazo de SLA, sempre com foco na excelência do atendimento ao cliente.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="img/noticia3.jpg" class="card-img-top" alt="Notícia 3">
+                        <div class="card-body">
+                                <span class="badge bg-success">Notícia</span>
+                            <h5 class="card-title">Desafios da logística rodoviária no Brasil</h5>
+                            <p class="card-text">Confira os principais desafios e soluções para o transporte rodoviário no país.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter py-5 bg-primary text-white">
+        <div class="container text-center">
+            <h4 class="mb-0">
+                <span class="text-white">Não importa o tamanho ou quantidade.</span><br>
+                <span class="fw-bold text-warning" style="font-size:1.5em;">Nós entregamos para você.</span>
+            </h4>
+        </div>
+    </section>
+
+    <!-- fale conosco -->
+<section id="contato" class="py-5 bg-fale-conosco">
+    <div class="container position-relative">
+        <h2 class="text-center mb-4 text-black">Fale Conosco</h2>
+        <div class="row">
+            <div class="col-md-6">
+            <form action="enviar-contato.php" method="POST">
+                <div class="mb-3">
+                <label for="nome" class="form-label text-black">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+                <div class="mb-3">
+                <label for="email" class="form-label text-black">E-mail</label>
+                <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                <label for="mensagem" class="form-label text-black">Mensagem</label>
+                <textarea class="form-control" id="mensagem" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+            </div>
+<div class="col-md-6">
+    <h5 class="text-black">Informações de Contato</h5>
+    <p class="text-black"><strong class="text-primary">Telefone:</strong> (31) 99657-9613 (31) 99999-7094 </p>
+    <p class="text-black"><strong class="text-primary">E-mail:</strong> financeiro@portoguimaraes.com.br</p>
+    <p class="text-black"><strong class="text-primary">Redes Sociais:</strong></p>
+    <a href="https://www.facebook.com/profile.php?id=100088827406317" class="me-2 text-primary"><i class="bi bi-facebook"></i></a>
+    <a href="https://www.instagram.com/_portoguimaraesexpress/" class="me-2 text-primary"><i class="bi bi-instagram"></i></a>
+    <a href="https://br.linkedin.com/in/portoguimaraesexpress" class="text-primary"><i class="bi bi-linkedin"></i></a>
+
+    <!-- Mapas das bases -->
+    <div class="row row-cols-1 row-cols-md-3 g-3 mt-4">
+        <!-- Base Governador Valadares -->
+        <div class="col">
+            <h6 class="text-black">Base Governador Valadares</h6>
+            <div style="width:100%; aspect-ratio: 16/9;">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3774.7943818370068!2d-41.993916925664486!3d-18.896200906949208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb1a8b05268674b%3A0x97a7bc448ab58fe9!2sAv.%20Industrial%2C%20500%20-%20Distrito%20Industrial%2C%20Gov.%20Valadares%20-%20MG%2C%2035040-610!5e0!3m2!1spt-BR!2sbr!4v1753087322410!5m2!1spt-BR!2sbr"
+                    width="200" height="200" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+            </div>
+        </div>
+        <!-- Base Teófilo Otoni -->
+        <div class="col">
+            <h6 class="text-black">Base Teófilo Otoni</h6>
+            <div style="width:100%; aspect-ratio: 16/9;">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3798.032370847525!2d-41.52279314712285!3d-17.83711738866506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb373df33438b67%3A0x4b7a3d9548385f54!2sMG-217%2C%201680%20-%20S%C3%A3o%20Cristovao%2C%20Te%C3%B3filo%20Otoni%20-%20MG%2C%2039804-710!5e0!3m2!1spt-BR!2sbr!4v1753087815484!5m2!1spt-BR!2sbr"
+                    width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <!-- Ribeirão das Neves -->
+        <div class="col">
+            <h6 class="text-black">Ribeirão das Neves</h6>
+            <div style="width:100%; aspect-ratio: 16/9;">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3754.569625632853!2d-44.07342819999999!3d-19.7734316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa68d1492d14f41%3A0xd611d0e80a2340d5!2sR.%20Geraldo%20Fernandes%2C%20425%20-%20Santa%20Martinha%2C%20Ribeir%C3%A3o%20das%20Neves%20-%20MG%2C%2033860-480!5e0!3m2!1spt-BR!2sbr!4v1754056619915!5m2!1spt-BR!2sbr"
+                    width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão para expandir -->
+    <div class="text-center mt-3">
+        <button class="btn btn-outline-primary btn-sm" id="btnVerMaisBases" onclick="document.getElementById('basesOcultas').style.display='flex'; this.style.display='none';">
+            <i class="bi bi-chevron-down"></i> Ver mais bases
+        </button>
+    </div>
+    <!-- Demais bases ocultas inicialmente -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3 mt-2" id="basesOcultas" style="display:none;">
+        <div class="col">
+            <h6 class="text-black">Contagem</h6>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3750.0906800090697!2d-44.05188899897043!3d-19.9626883681557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa6be310975acc3%3A0x8fe400fe26941c62!2sR.%20Sete%20de%20Setembro%2C%20135%20-%20Bandeirantes%2C%20Contagem%20-%20MG%2C%2032240-540!5e0!3m2!1spt-BR!2sbr!4v1753981984511!5m2!1spt-BR!2sbr"
+                width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
+        <div class="col">
+            <h6 class="text-black">João Monlevade</h6>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3753.161389458796!2d-43.18949941844205!3d-19.83312306210356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa5a9f426eaf489%3A0x704000ca6d099c49!2sR.%20Sebasti%C3%A3o%20Sim%C3%A3o%20Almeida%2C%20529%20-%20Campos%20El%C3%ADsios%2C%20Jo%C3%A3o%20Monlevade%20-%20MG%2C%2035931-193!5e0!3m2!1spt-BR!2sbr!4v1753982316868!5m2!1spt-BR!2sbr"
+                width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
+        <div class="col">
+            <h6 class="text-black">Ipatinga</h6>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.980087233877!2d-42.5256958903265!3d-19.45642533052159!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb001b3eff5c495%3A0x8f5ce6c4a30fc94f!2sR.%20Diadema%2C%20377%20-%20Parque%20Caravelas%2C%20Santana%20do%20Para%C3%ADso%20-%20MG%2C%2035179-000!5e0!3m2!1spt-BR!2sbr!4v1753984328205!5m2!1spt-BR!2sbr"
+                width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="col">
+            <h6 class="text-black">Sete Lagoas</h6>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!3m2!1spt-BR!2sbr!4v1754043020804!5m2!1spt-BR!2sbr!6m8!1m7!1sXwAyXs76R-7ZUu9_jje_Nw!2m2!1d-19.46964225876716!2d-44.26214122550314!3f122.04299716002149!4f-13.487638563353542!5f0.40063041050579506"
+                width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="col">
+            <h6 class="text-black">Santa Barbara</h6>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3750.0474279340224!2d-43.461269124771825!3d-19.96450758143163!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTnCsDU3JzUyLjIiUyA0M8KwMjcnMzEuMyJX!5e0!3m2!1spt-BR!2sbr!4v1754049441890!5m2!1spt-BR!2sbr"
+                width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+    <!-- Adicione mais mapas conforme necessário -->
+</div>
+        </div>
+    </div>
+</section>
+
+    <!-- Rodapé -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <div class="mb-2">
+                <a href="https://www.facebook.com/profile.php?id=100088827406317" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/_portoguimaraesexpress/" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                <a href="https://br.linkedin.com/in/portoguimaraesexpress" class="text-white me-3"><i class="bi bi-linkedin"></i></a>
+            </div>
+            <div class="mb-2">
+                <a href="#" class="text-white me-3">Política de Privacidade</a>
+                <a href="#" class="text-white me-3">Área Comercial</a>
+                <a href="#" class="text-white">Investidores</a>
+            </div>
+            <small>&copy; 2025 Porto Guimarães Express. Todos os direitos reservados.</small>
+        </div>
+    </footer>
+
+    <!-- Aviso de Cookies -->
+    <div id="cookieBanner" class="cookie-banner bg-secondary text-white p-3 position-fixed bottom-0 start-0 w-100" style="z-index:9999; transition: transform 0.6s cubic-bezier(.77,0,.18,1), opacity 0.6s;">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center w-100">
+            <span class="mb-2 mb-md-0 text-center text-md-start flex-grow-1">
+                Utilizamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa 
+                <a href="#" class="text-white text-decoration-underline">Política de Privacidade</a>.
+            </span>
+            <button class="btn btn-light btn-sm ms-md-3" onclick="hideCookieBanner()">Ok, entendi!</button>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function hideCookieBanner() {
+            const banner = document.getElementById('cookieBanner');
+            banner.style.transform = 'translateX(100vw)';
+            banner.style.opacity = '0';
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 600);
+        }
+    </script>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</body>
+</html>

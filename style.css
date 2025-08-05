@@ -1,0 +1,251 @@
+/* Carrossel de parceiros animado */
+.parceiros-carousel .parceiros-track {
+    animation: parceirosScroll 18s linear infinite;
+}
+@keyframes parceirosScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+/* Imagem de fundo para parceiros + quem somos */
+.bg-parceiros {
+    background: url('img/pacotes.png') center center/cover no-repeat;
+    position: relative;
+}
+.bg-parceiros:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 0;
+}
+.bg-parceiros > .container,
+.bg-parceiros section,
+.bg-parceiros .row,
+.bg-parceiros .parceiros-carousel {
+    position: relative;
+    z-index: 1;
+}
+.text-shadow {
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+/* Garantir logo colada à esquerda */
+.navbar .container {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    width: 100%;
+    max-width: 100%;
+}
+/* Campos menores para formulário trabalhe conosco */
+.campo-menor {
+    max-width: 400px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+}
+/* Padronização das imagens dos parceiros */
+.parceiro-img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* style.css - Personalizações para Porto Guimarães Logística */
+
+/* Fundo personalizado para a página de contato */
+.bg-fale-conosco {
+    background: url('img/back.jpg') center center/cover no-repeat;
+    position: relative;
+}
+.bg-fale-conosco:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 0, 0, 0); /* overlay escuro opcional - alpha reduzido para ver a imagem */
+    z-index: 0;
+}
+.bg-fale-conosco > .container,
+.bg-fale-conosco .row {
+    position: relative;
+    z-index: 1;
+}
+
+/* Cabeçalho */
+.navbar.bg-primary {
+    background: linear-gradient(90deg, #002147 70%, #b80c0c 100%) !important;
+}
+.navbar .navbar-brand {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin-right: auto;
+    margin-left: 0 !important;
+    justify-content: flex-start;
+}
+.logo-header {
+    height: 250px;
+    width: auto;
+    max-width: 180px;
+    object-fit: contain;
+    display: block;
+    background: transparent;
+    margin: 0 auto;
+}
+.navbar .nav-link, .navbar .btn {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+.navbar .btn-danger {
+    background: #b80c0c;
+    border: none;
+}
+.navbar .btn-danger:hover {
+    background: #a00a0a;
+}
+
+/* Banner */
+.banner {
+    min-height: 350px;
+    background: linear-gradient(120deg, #002147 70%, #b80c0c 100%);
+    color: #fff;
+    padding-top: 120px;
+    padding-bottom: 80px;
+}
+.banner h1, .banner p {
+    color: #ffffff;
+}
+.banner .btn-danger {
+    font-size: 1.2rem;
+    padding: 0.75rem 2.5rem;
+}
+
+/* Cards de Soluções */
+.card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 2px 16px 0 #00214710;
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 4px 24px 0 #b80c0c22;
+}
+.card-title {
+    color: #002147;
+    font-weight: 700;
+}
+.card .stretched-link {
+    color: #b80c0c;
+    font-weight: 500;
+}
+
+/* Indicadores */
+#indicadores .display-6 {
+    color: #b80c0c;
+    font-size: 2.2rem;
+}
+#indicadores div {
+    font-size: 1.1rem;
+}
+
+/* Quem Somos */
+#quem-somos ul {
+    list-style: disc inside;
+    color: #002147;
+    font-size: 1.1rem;
+}
+#quem-somos img {
+    max-width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 2px 16px 0 #00214722;
+}
+
+/* Newsletter */
+.newsletter {
+    background: linear-gradient(90deg, #002147 70%, #b80c0c 100%);
+}
+.newsletter input, .newsletter button {
+    border-radius: 2rem;
+}
+.newsletter .btn-danger {
+    background: #b80c0c;
+    border: none;
+}
+.newsletter .btn-danger:hover {
+    background: #a00a0a;
+}
+
+/* Rodapé */
+footer.bg-dark {
+    background: #002147 !important;
+}
+footer a {
+    color: #fff;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+footer a:hover {
+    opacity: 1;
+    color: #b80c0c;
+}
+
+/* Aviso de Cookies */
+.cookie-banner {
+    background: #002147 !important;
+    color: #fff !important;
+    font-size: 1rem;
+    border-radius: 1.5rem 1.5rem 0 0;
+    box-shadow: 0 -2px 12px #0002;
+}
+.cookie-banner .btn {
+    color: #222;
+    background: #fff;
+    border-radius: 2rem;
+    font-weight: 600;
+}
+
+/* Responsividade */
+@media (max-width: 991px) {
+    .navbar .navbar-brand {
+        height: 56px;
+        justify-content: center;
+        width: 100%;
+    }
+    .logo-header {
+        height: 304px;
+        max-width: 90vw;
+        margin: 0 auto;
+    }
+    .banner {
+        padding-top: 90px;
+        min-height: 220px;
+    }
+}
+@media (max-width: 768px) {
+    .banner {
+        padding-top: 70px;
+        padding-bottom: 40px;
+    }
+    .newsletter h4 {
+        font-size: 1.2rem;
+    }
+    .col-4 {
+        position: relative;
+    }
+}
+@media (max-width: 576px) {
+    .navbar .navbar-brand {
+        justify-content: center;
+        width: 100%;
+        height: 64px;
+    }
+    .logo-header {
+        height: 304px;
+        max-width: 90vw;
+        margin: 0 auto;
+    }
+}
