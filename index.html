@@ -294,18 +294,18 @@ Cada uma de nossas bases e todos os nossos processos foram planejados com cuidad
         <h2 class="text-center mb-4 text-black">Fale Conosco</h2>
         <div class="row">
             <div class="col-md-6">
-            <form action="enviar-contato.php" method="POST">
+            <form action="/enviar-contato" method="POST">
                 <div class="mb-3">
                 <label for="nome" class="form-label text-black">Nome</label>
                 <input type="text" class="form-control" id="nome" name="nome" required>
                 </div>
                 <div class="mb-3">
                 <label for="email" class="form-label text-black">E-mail</label>
-                <input type="email" class="form-control" id="email" required>
+                <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="mb-3">
                 <label for="mensagem" class="form-label text-black">Mensagem</label>
-                <textarea class="form-control" id="mensagem" rows="4" required></textarea>
+                <textarea class="form-control" id="mensagem" name="mensagem" rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>

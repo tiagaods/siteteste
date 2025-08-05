@@ -44,6 +44,80 @@ app.get('/trabalhe-conosco', (req, res) => {
     res.sendFile(path.join(__dirname, 'trabalhe-conosco.html'));
 });
 
+// Rota para enviar contato
+app.post('/enviar-contato', (req, res) => {
+    try {
+        const { nome, email, mensagem } = req.body;
+        
+        // Validação básica
+        if (!nome || !email || !mensagem) {
+            return res.status(400).send('Preencha todos os campos obrigatórios.');
+        }
+
+        // Configurar nodemailer
+        const transporter = nodemailer.createTransporter({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER || 'seu-email@gmail.com',
+                pass: process.env.EMAIL_PASS || 'sua-senha-app'
+            }
+        });
+
+        // Corpo do e-mail
+        const emailBody = `
+Nova mensagem de contato recebida pelo site:
+
+Nome: ${nome}
+E-mail: ${email}
+Mensagem: ${mensagem}
+`;
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER || 'seu-email@gmail.com',
+            to: 'tiago.bh.d@gmail.com',
+            subject: `Nova mensagem de contato - ${nome}`,
+            text: emailBody
+        };
+
+        // Enviar e-mail
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error('Erro ao enviar e-mail:', error);
+                res.status(500).send('Erro ao enviar mensagem: ' + error.message);
+            } else {
+                console.log('E-mail enviado:', info.response);
+                res.send(`
+                    <html>
+                        <head>
+                            <title>Mensagem Enviada</title>
+                            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+                        </head>
+                        <body class="bg-light">
+                            <div class="container mt-5">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title text-success">Mensagem enviada com sucesso!</h5>
+                                                <p class="card-text">Obrigado pelo contato. Responderemos em breve.</p>
+                                                <a href="/" class="btn btn-primary">Voltar ao site</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </body>
+                    </html>
+                `);
+            }
+        });
+
+    } catch (error) {
+        console.error('Erro no servidor:', error);
+        res.status(500).send('Erro interno do servidor: ' + error.message);
+    }
+});
+
 // Rota para enviar currículo
 app.post('/enviar-curriculo', upload.single('curriculo'), (req, res) => {
     try {
