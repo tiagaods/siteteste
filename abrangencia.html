@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abrangência - Porto Guimarães Express</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="module">
+        import { MarkerClusterer } from "https://cdn.skypack.dev/@googlemaps/markerclusterer";
+        
+        window.initMap = async function() {
+            // Request needed libraries.
+            const { Map, InfoWindow } = await google.maps.importLibrary("maps");
+            const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+            
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 7,
+                center: { lat: -18.512178, lng: -44.555031 }, // Centro de MG
+                mapId: "DEMO_MAP_ID",
+                styles: [
+                    {
+                        "featureType": "administrative",
+                        "elementType": "geometry",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "poi",
+                        "stylers": [{"visibility": "off"}]
+                    }
+                ]
+            });
+            
+            const infoWindow = new google.maps.InfoWindow({
+                content: "",
+                disableAutoPan: false,
+            });
+
+            // Localizações das bases da Porto Guimarães
+            const basesLocations = [
+                // Governador Valadares
+                { lat: -18.851120, lng: -41.949470, 
+                  nome: "Governador Valadares", 
+                  info: "Base principal - Atende + de 50 cidades do Vale do Rio Doce",
+                  cidades: "Governador Valadares, Ipatinga, Caratinga, Manhuaçu, Ponte Nova e região" },
+                
+                // Teófilo Otoni  
+                { lat: -17.859280, lng: -41.513310,
+                  nome: "Teófilo Otoni",
+                  info: "Região Nordeste de MG - + de 30 cidades",
+                  cidades: "Teófilo Otoni, Nanuque, Carlos Chagas, Malacacheta e região" },
+                
+                // Ribeirão das Neves
+                { lat: -19.766890, lng: -44.087250,
+                  nome: "Ribeirão das Neves", 
+                  info: "Grande BH - Região Metropolitana",
+                  cidades: "Ribeirão das Neves, Vespasiano, Pedro Leopoldo, Lagoa Santa e região" },
+                
+                // Contagem
+                { lat: -19.931120, lng: -44.053650,
+                  nome: "Contagem",
+                  info: "Hub Logístico da RMBH",
+                  cidades: "Contagem, Betim, Nova Lima, Brumadinho e região" },
+                
+                // João Monlevade
+                { lat: -19.810560, lng: -43.172780,
+                  nome: "João Monlevade",
+                  info: "Região Central - Vale do Aço",
+                  cidades: "João Monlevade, Itabira, Santa Bárbara, Barão de Cocais e região" },
+                
+                // Ipatinga
+                { lat: -19.468330, lng: -42.536390,
+                  nome: "Ipatinga",
+                  info: "Vale do Aço - Região Leste",
+                  cidades: "Ipatinga, Timóteo, Coronel Fabriciano, Santana do Paraíso e região" },
+                
+                // Sete Lagoas
+                { lat: -19.465560, lng: -44.246940,
+                  nome: "Sete Lagoas",
+                  info: "Região Central Norte",
+                  cidades: "Sete Lagoas, Paraopeba, Maravilhas, Cordisburgo e região" },
+                
+                // Santa Bárbara
+                { lat: -19.957780, lng: -43.408610,
+                  nome: "Santa Bárbara",
+                  info: "Região Central",
+                  cidades: "Santa Bárbara, Caeté, Nova Era, São Gonçalo do Rio Abaixo e região" }
+            ];
+
+            // Criar marcadores para as bases
+            const markers = basesLocations.map((base, i) => {
+                const pinGlyph = new google.maps.marker.PinElement({
+                    glyph: (i + 1).toString(),
+                    glyphColor: "white",
+                    background: "#b80c0c",
+                    borderColor: "#002147",
+                    scale: 1.2
+                });
+                
+                const marker = new google.maps.marker.AdvancedMarkerElement({
+                    position: { lat: base.lat, lng: base.lng },
+                    content: pinGlyph.element,
+                    title: base.nome
+                });
+
+                // Adicionar listener de click para mostrar informações
+                marker.addListener("click", () => {
+                    infoWindow.setContent(`
+                        <div style="max-width: 300px;">
+                            <h6 style="color: #002147; margin-bottom: 10px; font-weight: bold;">${base.nome}</h6>
+                            <p style="margin-bottom: 8px; color: #666;"><strong>Cobertura:</strong> ${base.info}</p>
+                            <p style="margin-bottom: 0; color: #666; font-size: 0.9em;"><strong>Principais cidades:</strong> ${base.cidades}</p>
+                        </div>
+                    `);
+                    infoWindow.open(map, marker);
+                });
+                
+                return marker;
+            });
+
+            // Adicionar cluster aos marcadores
+            new MarkerClusterer({ 
+                markers, 
+                map,
+                renderer: {
+                    render: ({ count, position }) => {
+                        const color = count > 5 ? "#b80c0c" : "#002147";
+                        return new google.maps.marker.AdvancedMarkerElement({
+                            position,
+                            content: new google.maps.marker.PinElement({
+                                glyph: count.toString(),
+                                glyphColor: "white",
+                                background: color,
+                                borderColor: "#fff",
+                                scale: 1.5
+                            }).element,
+                        });
+                    }
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="img/logo.png" alt="Porto Guimarães Express" class="logo-header">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html#solucoes">Soluções</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#indicadores">Indicadores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#quem-somos">Quem Somos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#noticias">Notícias</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contato">Contato</a></li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-danger btn-sm px-3" href="index.html#parceiros">Nossos Parceiros</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-warning btn-sm px-3" href="trabalhe-conosco.html">Trabalhe Conosco</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <section class="py-5" style="margin-top: 100px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h1 class="display-4 fw-bold text-primary mb-3">Nossa Abrangência em Minas Gerais</h1>
+                    <p class="lead">Conheça todas as bases da Porto Guimarães Express e suas áreas de cobertura</p>
+                </div>
+            </div>
+
+            <!-- Mapa Interativo -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card shadow-lg">
+                        <div class="card-body p-4">
+                            <div class="text-center mb-3">
+                                <h4 class="text-primary">Mapa Interativo das Bases</h4>
+                                <p class="text-muted">Clique nos marcadores para ver informações detalhadas</p>
+                            </div>
+                            <div id="map" style="height: 500px; width: 100%; border-radius: 10px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de Bases -->
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Governador Valadares</h5>
+                            <p class="card-text">Base principal atendendo o Vale do Rio Doce e região.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>+ de 50 cidades</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Cobertura leste de MG</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Teófilo Otoni</h5>
+                            <p class="card-text">Atendimento especializado para a região nordeste do estado.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>+ de 30 cidades</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Região dos Vales</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Ribeirão das Neves</h5>
+                            <p class="card-text">Cobertura estratégica da região metropolitana de BH.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Grande BH</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Região Central</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Contagem</h5>
+                            <p class="card-text">Hub logístico para a região metropolitana.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>RMBH</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Distrito Industrial</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">João Monlevade</h5>
+                            <p class="card-text">Atendimento da região central do estado.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Região Central</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Vale do Aço</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Ipatinga</h5>
+                            <p class="card-text">Base estratégica no Vale do Aço.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Vale do Aço</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Região Leste</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão de Voltar -->
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <a href="index.html" class="btn btn-primary btn-lg px-4">
+                        <i class="bi bi-arrow-left me-2"></i>Voltar ao Site
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <small>&copy; 2025 Porto Guimarães Express. Todos os direitos reservados.</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=marker"></script>
+</body>
+</html>

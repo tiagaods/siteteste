@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abrangência Interativa - Porto Guimarães Express</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .mapa-interativo {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mapa-svg {
+            width: 100%;
+            height: 500px;
+            cursor: grab;
+        }
+        
+        .mapa-svg:active {
+            cursor: grabbing;
+        }
+        
+        .estado-mg {
+            fill: #8BB6D6;
+            stroke: #fff;
+            stroke-width: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .area-cobertura {
+            fill: rgba(184, 12, 12, 0.2);
+            stroke: #b80c0c;
+            stroke-width: 1;
+            stroke-dasharray: 5,5;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .area-cobertura.ativa {
+            opacity: 1;
+        }
+        
+        .marcador-base {
+            fill: #b80c0c;
+            stroke: #fff;
+            stroke-width: 3;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        
+        .marcador-base:hover {
+            fill: #ff0000;
+            transform: scale(1.3);
+        }
+        
+        .marcador-numero {
+            fill: white;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            text-anchor: middle;
+            dominant-baseline: central;
+            pointer-events: none;
+        }
+        
+        .tooltip-base {
+            position: absolute;
+            background: rgba(0, 33, 71, 0.95);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            max-width: 280px;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .tooltip-base.ativo {
+            opacity: 1;
+        }
+        
+        .controles-mapa {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .btn-controle {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            color: #002147;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-controle:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+        
+        .legenda {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.95);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .legenda-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+        
+        .legenda-cor {
+            width: 20px;
+            height: 12px;
+            margin-right: 8px;
+            border-radius: 2px;
+        }
+        
+        @media (max-width: 768px) {
+            .controles-mapa {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .legenda {
+                bottom: 10px;
+                left: 10px;
+                font-size: 11px;
+            }
+            
+            .tooltip-base {
+                font-size: 12px;
+                max-width: 200px;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="img/logo.png" alt="Porto Guimarães Express" class="logo-header">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html#solucoes">Soluções</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#indicadores">Indicadores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#quem-somos">Quem Somos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#noticias">Notícias</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contato">Contato</a></li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-danger btn-sm px-3" href="index.html#parceiros">Nossos Parceiros</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-warning btn-sm px-3" href="trabalhe-conosco.html">Trabalhe Conosco</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <section class="py-5" style="margin-top: 100px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h1 class="display-4 fw-bold text-primary mb-3">Nossa Abrangência em Minas Gerais</h1>
+                    <p class="lead">Mapa Interativo das Bases e Áreas de Cobertura</p>
+                    <p class="text-muted">Clique nos marcadores para ver a área de abrangência de cada base</p>
+                </div>
+            </div>
+
+            <!-- Mapa Interativo -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="mapa-interativo position-relative">
+                        <svg class="mapa-svg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Definições para filtros e gradientes -->
+                            <defs>
+                                <filter id="sombra" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/>
+                                </filter>
+                                <radialGradient id="gradientCobertura" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" style="stop-color:#b80c0c;stop-opacity:0.4" />
+                                    <stop offset="100%" style="stop-color:#b80c0c;stop-opacity:0.1" />
+                                </radialGradient>
+                            </defs>
+                            
+                            <!-- Contorno de Minas Gerais (forma mais realista) -->
+                            <path class="estado-mg" d="M150,120 L200,100 L280,90 L350,100 L420,110 L480,130 L520,150 L550,180 L570,220 L580,260 L570,300 L550,340 L520,380 L480,410 L430,430 L380,440 L320,445 L260,440 L200,430 L150,410 L120,380 L100,340 L90,300 L95,260 L105,220 L120,180 L135,150 Z" filter="url(#sombra)"/>
+                            
+                            <!-- Áreas de Cobertura (círculos que representam as áreas de abrangência) -->
+                            <!-- Governador Valadares -->
+                            <circle class="area-cobertura" id="area-1" cx="480" cy="240" r="80" fill="url(#gradientCobertura)"/>
+                            
+                            <!-- Teófilo Otoni -->
+                            <circle class="area-cobertura" id="area-2" cx="420" cy="200" r="60" fill="url(#gradientCobertura)"/>
+                            
+                            <!-- Ribeirão das Neves -->
+                            <circle class="area-cobertura" id="area-3" cx="300" cy="280" r="50" fill="url(#gradientCobertura)"/>
+                            
+                            <!-- Contagem -->
+                            <circle class="area-cobertura" id="area-4" cx="280" cy="290" r="45" fill="url(#gradientCobertura)"/>
+                            
+                            <!-- João Monlevade -->
+                            <circle class="area-cobertura" id="area-5" cx="320" cy="260" r="40" fill="url(#gradientCobertura)"/>
+                            
+                            <!-- Ipatinga -->
+                            <circle class="area-cobertura" id="area-6" cx="380" cy="250" r="45" fill="url(#gradientCobertura)"/>
+                            
+                            <!-- Sete Lagoas -->
+                            <circle class="area-cobertura" id="area-7" cx="250" cy="250" r="50" fill="url(#gradientCobertura)"/>
+                            
+                            <!-- Santa Bárbara -->
+                            <circle class="area-cobertura" id="area-8" cx="310" cy="270" r="35" fill="url(#gradientCobertura)"/>
+                            
+                            <!-- Marcadores das Bases -->
+                            <!-- Governador Valadares -->
+                            <circle class="marcador-base" data-base="1" cx="480" cy="240" r="15"/>
+                            <text class="marcador-numero" x="480" y="240">1</text>
+                            
+                            <!-- Teófilo Otoni -->
+                            <circle class="marcador-base" data-base="2" cx="420" cy="200" r="15"/>
+                            <text class="marcador-numero" x="420" y="200">2</text>
+                            
+                            <!-- Ribeirão das Neves -->
+                            <circle class="marcador-base" data-base="3" cx="300" cy="280" r="15"/>
+                            <text class="marcador-numero" x="300" y="280">3</text>
+                            
+                            <!-- Contagem -->
+                            <circle class="marcador-base" data-base="4" cx="280" cy="290" r="15"/>
+                            <text class="marcador-numero" x="280" y="290">4</text>
+                            
+                            <!-- João Monlevade -->
+                            <circle class="marcador-base" data-base="5" cx="320" cy="260" r="15"/>
+                            <text class="marcador-numero" x="320" y="260">5</text>
+                            
+                            <!-- Ipatinga -->
+                            <circle class="marcador-base" data-base="6" cx="380" cy="250" r="15"/>
+                            <text class="marcador-numero" x="380" y="250">6</text>
+                            
+                            <!-- Sete Lagoas -->
+                            <circle class="marcador-base" data-base="7" cx="250" cy="250" r="15"/>
+                            <text class="marcador-numero" x="250" y="250">7</text>
+                            
+                            <!-- Santa Bárbara -->
+                            <circle class="marcador-base" data-base="8" cx="310" cy="270" r="15"/>
+                            <text class="marcador-numero" x="310" y="270">8</text>
+                        </svg>
+                        
+                        <!-- Controles do Mapa -->
+                        <div class="controles-mapa">
+                            <button class="btn-controle" onclick="zoomIn()" title="Aumentar zoom">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                            <button class="btn-controle" onclick="zoomOut()" title="Diminuir zoom">
+                                <i class="bi bi-dash"></i>
+                            </button>
+                            <button class="btn-controle" onclick="resetZoom()" title="Reset zoom">
+                                <i class="bi bi-house"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Legenda -->
+                        <div class="legenda">
+                            <h6 class="mb-2 text-primary">Legenda</h6>
+                            <div class="legenda-item">
+                                <div class="legenda-cor" style="background: #b80c0c;"></div>
+                                <span>Base da Porto Guimarães</span>
+                            </div>
+                            <div class="legenda-item">
+                                <div class="legenda-cor" style="background: rgba(184, 12, 12, 0.3); border: 1px dashed #b80c0c;"></div>
+                                <span>Área de Abrangência</span>
+                            </div>
+                            <div class="legenda-item">
+                                <div class="legenda-cor" style="background: #8BB6D6;"></div>
+                                <span>Estado de Minas Gerais</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Tooltip -->
+                        <div class="tooltip-base" id="tooltip"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Informações das Bases -->
+        <div class="container mt-5">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="badge bg-primary rounded-circle mb-3" style="width: 40px; height: 40px; line-height: 26px; font-size: 18px;">1</div>
+                            <h5 class="card-title text-primary">Governador Valadares</h5>
+                            <p class="card-text text-muted">Base principal atendendo o Vale do Rio Doce</p>
+                            <ul class="list-unstyled small text-start">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>+ de 50 cidades</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Cobertura leste de MG</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Hub principal</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="badge bg-primary rounded-circle mb-3" style="width: 40px; height: 40px; line-height: 26px; font-size: 18px;">2</div>
+                            <h5 class="card-title text-primary">Teófilo Otoni</h5>
+                            <p class="card-text text-muted">Região nordeste de Minas Gerais</p>
+                            <ul class="list-unstyled small text-start">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>+ de 30 cidades</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Região dos Vales</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Cobertura nordeste</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="badge bg-primary rounded-circle mb-3" style="width: 40px; height: 40px; line-height: 26px; font-size: 18px;">3</div>
+                            <h5 class="card-title text-primary">Ribeirão das Neves</h5>
+                            <p class="card-text text-muted">Grande Belo Horizonte</p>
+                            <ul class="list-unstyled small text-start">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Grande BH</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Região Central</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Alta densidade</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="badge bg-primary rounded-circle mb-3" style="width: 40px; height: 40px; line-height: 26px; font-size: 18px;">4</div>
+                            <h5 class="card-title text-primary">Contagem</h5>
+                            <p class="card-text text-muted">Hub logístico da RMBH</p>
+                            <ul class="list-unstyled small text-start">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>RMBH</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Distrito Industrial</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Centro logístico</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row g-4 mt-2">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="badge bg-primary rounded-circle mb-3" style="width: 40px; height: 40px; line-height: 26px; font-size: 18px;">5</div>
+                            <h5 class="card-title text-primary">João Monlevade</h5>
+                            <p class="card-text text-muted">Região central do estado</p>
+                            <ul class="list-unstyled small text-start">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Região Central</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Vale do Aço</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Conexão estratégica</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="badge bg-primary rounded-circle mb-3" style="width: 40px; height: 40px; line-height: 26px; font-size: 18px;">6</div>
+                            <h5 class="card-title text-primary">Ipatinga</h5>
+                            <p class="card-text text-muted">Base estratégica no Vale do Aço</p>
+                            <ul class="list-unstyled small text-start">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Vale do Aço</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Região Leste</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Industrial</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="badge bg-primary rounded-circle mb-3" style="width: 40px; height: 40px; line-height: 26px; font-size: 18px;">7</div>
+                            <h5 class="card-title text-primary">Sete Lagoas</h5>
+                            <p class="card-text text-muted">Região central norte</p>
+                            <ul class="list-unstyled small text-start">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Central Norte</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Eixo estratégico</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Distribuição</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="badge bg-primary rounded-circle mb-3" style="width: 40px; height: 40px; line-height: 26px; font-size: 18px;">8</div>
+                            <h5 class="card-title text-primary">Santa Bárbara</h5>
+                            <p class="card-text text-muted">Região central de MG</p>
+                            <ul class="list-unstyled small text-start">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Região Central</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Apoio logístico</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Capilaridade</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botão de Voltar -->
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <a href="index.html" class="btn btn-primary btn-lg px-4">
+                        <i class="bi bi-arrow-left me-2"></i>Voltar ao Site
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <small>&copy; 2025 Porto Guimarães Express. Todos os direitos reservados.</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <script>
+        // Dados das bases
+        const basesData = {
+            1: {
+                nome: "Governador Valadares",
+                regiao: "Vale do Rio Doce",
+                cidades: "50+",
+                info: "Base principal da Porto Guimarães Express. Atende todo o Vale do Rio Doce e região leste de Minas Gerais, incluindo Ipatinga, Caratinga, Manhuaçu e mais de 50 cidades."
+            },
+            2: {
+                nome: "Teófilo Otoni",
+                regiao: "Nordeste de MG",
+                cidades: "30+",
+                info: "Cobertura estratégica da região nordeste de Minas Gerais, atendendo Teófilo Otoni, Nanuque, Carlos Chagas, Malacacheta e região dos Vales."
+            },
+            3: {
+                nome: "Ribeirão das Neves",
+                regiao: "Grande BH",
+                cidades: "RMBH",
+                info: "Atendimento especializado da Região Metropolitana de Belo Horizonte, incluindo Ribeirão das Neves, Vespasiano, Pedro Leopoldo e Lagoa Santa."
+            },
+            4: {
+                nome: "Contagem",
+                regiao: "Hub RMBH",
+                cidades: "RMBH",
+                info: "Principal hub logístico da Região Metropolitana de BH, atendendo Contagem, Betim, Nova Lima, Brumadinho e todo o distrito industrial."
+            },
+            5: {
+                nome: "João Monlevade",
+                regiao: "Região Central",
+                cidades: "Vale do Aço",
+                info: "Base estratégica na região central, conectando o Vale do Aço com João Monlevade, Itabira, Santa Bárbara e Barão de Cocais."
+            },
+            6: {
+                nome: "Ipatinga",
+                regiao: "Vale do Aço",
+                cidades: "Região Leste",
+                info: "Cobertura especializada do Vale do Aço, atendendo Ipatinga, Timóteo, Coronel Fabriciano, Santana do Paraíso e região industrial."
+            },
+            7: {
+                nome: "Sete Lagoas",
+                regiao: "Central Norte",
+                cidades: "Região Norte",
+                info: "Atendimento da região central norte de MG, incluindo Sete Lagoas, Paraopeba, Maravilhas, Cordisburgo e cidades do eixo norte."
+            },
+            8: {
+                nome: "Santa Bárbara",
+                regiao: "Região Central",
+                cidades: "Centro MG",
+                info: "Base de apoio na região central, atendendo Santa Bárbara, Caeté, Nova Era, São Gonçalo do Rio Abaixo e região metropolitana."
+            }
+        };
+
+        let zoomLevel = 1;
+        let currentViewBox = "0 0 800 600";
+        const svgElement = document.querySelector('.mapa-svg');
+        const tooltip = document.getElementById('tooltip');
+        let activeArea = null;
+
+        // Configurar eventos dos marcadores
+        document.addEventListener('DOMContentLoaded', function() {
+            const marcadores = document.querySelectorAll('.marcador-base');
+            
+            marcadores.forEach(marcador => {
+                const baseId = marcador.getAttribute('data-base');
+                
+                marcador.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    mostrarAreaCobertura(baseId);
+                });
+                
+                marcador.addEventListener('mouseenter', function(e) {
+                    mostrarTooltip(e, baseId);
+                });
+                
+                marcador.addEventListener('mouseleave', function() {
+                    ocultarTooltip();
+                });
+            });
+
+            // Clique fora do mapa remove área ativa
+            svgElement.addEventListener('click', function() {
+                removerAreaAtiva();
+            });
+        });
+
+        function mostrarAreaCobertura(baseId) {
+            // Remove área ativa anterior
+            removerAreaAtiva();
+            
+            // Ativa nova área
+            const area = document.getElementById(`area-${baseId}`);
+            if (area) {
+                area.classList.add('ativa');
+                activeArea = baseId;
+                
+                // Destaque no marcador
+                const marcador = document.querySelector(`[data-base="${baseId}"]`);
+                marcador.style.fill = '#ff0000';
+                marcador.style.transform = 'scale(1.3)';
+            }
+        }
+
+        function removerAreaAtiva() {
+            if (activeArea) {
+                const area = document.getElementById(`area-${activeArea}`);
+                const marcador = document.querySelector(`[data-base="${activeArea}"]`);
+                
+                if (area) area.classList.remove('ativa');
+                if (marcador) {
+                    marcador.style.fill = '#b80c0c';
+                    marcador.style.transform = 'scale(1)';
+                }
+                
+                activeArea = null;
+            }
+        }
+
+        function mostrarTooltip(event, baseId) {
+            const dados = basesData[baseId];
+            if (!dados) return;
+            
+            tooltip.innerHTML = `
+                <div style="margin-bottom: 8px;">
+                    <strong style="color: #ffcc00;">${dados.nome}</strong>
+                </div>
+                <div style="margin-bottom: 6px; font-size: 12px;">
+                    <strong>Região:</strong> ${dados.regiao}
+                </div>
+                <div style="margin-bottom: 6px; font-size: 12px;">
+                    <strong>Cidades:</strong> ${dados.cidades}
+                </div>
+                <div style="font-size: 11px; line-height: 1.4;">
+                    ${dados.info}
+                </div>
+            `;
+            
+            const rect = event.target.getBoundingClientRect();
+            const containerRect = event.target.closest('.mapa-interativo').getBoundingClientRect();
+            
+            tooltip.style.left = (rect.left - containerRect.left + 25) + 'px';
+            tooltip.style.top = (rect.top - containerRect.top - 10) + 'px';
+            tooltip.classList.add('ativo');
+        }
+
+        function ocultarTooltip() {
+            tooltip.classList.remove('ativo');
+        }
+
+        function zoomIn() {
+            zoomLevel = Math.min(zoomLevel * 1.2, 3);
+            aplicarZoom();
+        }
+
+        function zoomOut() {
+            zoomLevel = Math.max(zoomLevel / 1.2, 0.5);
+            aplicarZoom();
+        }
+
+        function resetZoom() {
+            zoomLevel = 1;
+            aplicarZoom();
+        }
+
+        function aplicarZoom() {
+            const width = 800 / zoomLevel;
+            const height = 600 / zoomLevel;
+            const x = (800 - width) / 2;
+            const y = (600 - height) / 2;
+            
+            svgElement.setAttribute('viewBox', `${x} ${y} ${width} ${height}`);
+        }
+
+        // Animação de entrada
+        window.addEventListener('load', function() {
+            const marcadores = document.querySelectorAll('.marcador-base');
+            marcadores.forEach((marcador, index) => {
+                setTimeout(() => {
+                    marcador.style.animation = 'bounce 0.6s ease-out';
+                }, index * 100);
+            });
+        });
+
+        // Adicionar animação CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 20%, 53%, 80%, 100% {
+                    transform: translate3d(0,0,0) scale(1);
+                }
+                40%, 43% {
+                    transform: translate3d(0,-8px,0) scale(1.1);
+                }
+                70% {
+                    transform: translate3d(0,-4px,0) scale(1.05);
+                }
+                90% {
+                    transform: translate3d(0,-1px,0) scale(1.02);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .estado { fill: #8BB6D6; stroke: #fff; stroke-width: 3; }
+      .marca { fill: #b80c0c; stroke: #fff; stroke-width: 2; }
+      .marca:hover { fill: #ff0000; cursor: pointer; }
+      .texto { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #002147; }
+    </style>
+  </defs>
+  
+  <!-- Contorno de Minas Gerais (simplificado) -->
+  <path class="estado" d="M50,80 L350,80 L380,120 L370,180 L340,220 L300,240 L200,250 L120,240 L80,200 L60,160 L50,120 Z"/>
+  
+  <!-- Marcadores das bases -->
+  <!-- Governador Valadares -->
+  <circle class="marca" cx="320" cy="150" r="8" data-base="gv">
+    <title>Governador Valadares</title>
+  </circle>
+  <text class="texto" x="330" y="155">Gov. Valadares</text>
+  
+  <!-- Teófilo Otoni -->
+  <circle class="marca" cx="280" cy="130" r="8" data-base="to">
+    <title>Teófilo Otoni</title>
+  </circle>
+  <text class="texto" x="290" y="125">Teófilo Otoni</text>
+  
+  <!-- Ribeirão das Neves -->
+  <circle class="marca" cx="200" cy="180" r="8" data-base="rn">
+    <title>Ribeirão das Neves</title>
+  </circle>
+  <text class="texto" x="210" y="175">Ribeirão das Neves</text>
+  
+  <!-- Contagem -->
+  <circle class="marca" cx="180" cy="190" r="8" data-base="ct">
+    <title>Contagem</title>
+  </circle>
+  <text class="texto" x="190" y="205">Contagem</text>
+  
+  <!-- João Monlevade -->
+  <circle class="marca" cx="220" cy="170" r="8" data-base="jm">
+    <title>João Monlevade</title>
+  </circle>
+  <text class="texto" x="230" y="165">João Monlevade</text>
+  
+  <!-- Ipatinga -->
+  <circle class="marca" cx="260" cy="160" r="8" data-base="ip">
+    <title>Ipatinga</title>
+  </circle>
+  <text class="texto" x="270" y="155">Ipatinga</text>
+  
+  <!-- Sete Lagoas -->
+  <circle class="marca" cx="160" cy="170" r="8" data-base="sl">
+    <title>Sete Lagoas</title>
+  </circle>
+  <text class="texto" x="170" y="165">Sete Lagoas</text>
+  
+  <!-- Santa Barbara -->
+  <circle class="marca" cx="200" cy="160" r="8" data-base="sb">
+    <title>Santa Barbara</title>
+  </circle>
+  <text class="texto" x="210" y="155">Santa Barbara</text>
+  
+</svg>
